@@ -4,16 +4,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.gaoxh.videoapk.bean.UserInfo;
+
 public class UserCenterViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private MutableLiveData<UserInfo> mUserInfo;
 
     public UserCenterViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mUserInfo = new MutableLiveData<>();
+        mUserInfo.setValue(null);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<UserInfo> getUserInfo(){
+        return mUserInfo;
+    }
+
+    public void loadUserInfo(){
+
     }
 }
