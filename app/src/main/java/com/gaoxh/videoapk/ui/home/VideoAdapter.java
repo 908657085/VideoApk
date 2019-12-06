@@ -16,19 +16,27 @@ import com.gaoxh.videoapk.bean.Video;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHolder> {
 
-    private List<Video> data;
+    private List<Video> videoList;
     private Context context;
 
-    public VideoAdapter() {
+    public VideoAdapter(Context context) {
+        this.context = context;
+        this.videoList = new ArrayList<>();
     }
 
-    public VideoAdapter( Context context,List<Video> data) {
-        this.data = data;
+    public VideoAdapter( Context context,List<Video> videoList) {
+        this.videoList = videoList;
         this.context = context;
+    }
+
+    public void addData(List<Video> data){
+        videoList.addAll(data);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -39,12 +47,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
-        holder.videoName.setText(data.get(position).getName());
+        holder.videoName.setText(videoList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return data!=null?data.size():0;
+        return videoList!=null?videoList.size():0;
     }
 
     public static class VideoViewHolder extends RecyclerView.ViewHolder{

@@ -2,20 +2,19 @@ package com.gaoxh.videoapk.bean;
 
 public class UserInfo {
     private long id;
-    private String icUrl;
-    private String name;
-    private String account;
-    private String level;
-
+    private String userName;
+    private String pwd;
+    private String userLevel;
+    private String userIcon;
     public UserInfo() {
     }
 
-    public UserInfo(long id, String icUrl, String name, String account, String level) {
+    public UserInfo(long id, String userName, String pwd, String userLevel, String userIcon) {
         this.id = id;
-        this.icUrl = icUrl;
-        this.name = name;
-        this.account = account;
-        this.level = level;
+        this.userName = userName;
+        this.pwd = pwd;
+        this.userLevel = userLevel;
+        this.userIcon = userIcon;
     }
 
     public long getId() {
@@ -26,46 +25,46 @@ public class UserInfo {
         this.id = id;
     }
 
-    public String getIcUrl() {
-        return icUrl;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setIcUrl(String icUrl) {
-        this.icUrl = icUrl;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getName() {
-        return name;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
-    public String getAccount() {
-        return account;
+    public String getUserLevel() {
+        return userLevel;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setUserLevel(String userLevel) {
+        this.userLevel = userLevel;
     }
 
-    public String getLevel() {
-        return level;
+    public String getUserIcon() {
+        return userIcon;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setUserIcon(String userIcon) {
+        this.userIcon = userIcon;
     }
 
     @Override
     public String toString() {
         return "UserInfo{" +
                 "id=" + id +
-                ", icUrl='" + icUrl + '\'' +
-                ", name='" + name + '\'' +
-                ", account='" + account + '\'' +
-                ", level='" + level + '\'' +
+                ", userName='" + userName + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", userLevel='" + userLevel + '\'' +
+                ", userIcon='" + userIcon + '\'' +
                 '}';
     }
 }

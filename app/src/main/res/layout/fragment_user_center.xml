@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:background="#F5F5F5"
     android:orientation="vertical">
+    <include layout="@layout/layout_title_bar" />
 
     <LinearLayout
         android:id="@+id/ll_user_login"

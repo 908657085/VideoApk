@@ -3,26 +3,23 @@ package com.gaoxh.videoapk.ui.usercenter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.gaoxh.videoapk.LoginActivity;
 import com.gaoxh.videoapk.R;
 import com.gaoxh.videoapk.bean.UserInfo;
+import com.gaoxh.videoapk.ui.AbsFragment;
 
-public class UserCenterFragment extends Fragment {
+public class UserCenterFragment extends AbsFragment {
     private static final String TAG = UserCenterFragment.class.getSimpleName();
     private UserCenterViewModel userCenterViewModel;
     private LinearLayout mLoginView;
@@ -33,19 +30,14 @@ public class UserCenterFragment extends Fragment {
     private View mIntroductionView;
     private Button mExitBtn;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        userCenterViewModel =
-                ViewModelProviders.of(this).get(UserCenterViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_user_center, container, false);
-        initView(root);
-        userCenterViewModel.getUserInfo().observe(this, new Observer<UserInfo>() {
-            @Override
-            public void onChanged(UserInfo userInfo) {
-                refreshUserInfo(userInfo);
-            }
-        });
-        return root;
+    @Override
+    public int layoutId() {
+        return R.layout.fragment_user_center;
+    }
+
+    @Override
+    public String titleText() {
+        return getResources().getString(R.string.title_user_center);
     }
 
     @Override
@@ -54,7 +46,10 @@ public class UserCenterFragment extends Fragment {
         Log.d(TAG, "onActivityCreated");
     }
 
-    private void initView(View root) {
+    public void initView(View root) {
+        userCenterViewModel =
+                ViewModelProviders.of(this).get(UserCenterViewModel.class);
+
         mLoginView = root.findViewById(R.id.ll_user_login);
 
         mUserIconIv = root.findViewById(R.id.iv_user_icon);
@@ -68,7 +63,7 @@ public class UserCenterFragment extends Fragment {
         mLoginView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userCenterViewModel.getUserInfo().getValue() == null) {
+                if (mApp.getUserInfo().getValue() == null) {
                     Intent intent = new Intent(getContext(), LoginActivity.class);
                     startActivity(intent);
                 }
@@ -78,6 +73,20 @@ public class UserCenterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "敬请期待!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mApp.getUserInfo().observe(this, new Observer<UserInfo>() {
+            @Override
+            public void onChanged(UserInfo userInfo) {
+                refreshUserInfo(userInfo);
+            }
+        });
+
+        mExitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mApp.setUserInfo(null);
             }
         });
     }
@@ -90,10 +99,10 @@ public class UserCenterFragment extends Fragment {
             mUserLevelTv.setText("游客");
             mExitBtn.setVisibility(View.GONE);
         } else {
-            loadUserIcon(userInfo.getIcUrl());
-            mUserNameTv.setText(userInfo.getName());
-            mUserAccountTv.setText(userInfo.getAccount());
-            mUserLevelTv.setText(userInfo.getLevel());
+            loadUserIcon(userInfo.getUserIcon());
+            mUserNameTv.setText(userInfo.getUserName());
+            mUserAccountTv.setText(userInfo.getUserName());
+            mUserLevelTv.setText(userInfo.getUserLevel());
             mExitBtn.setVisibility(View.VISIBLE);
         }
     }
