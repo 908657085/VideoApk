@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gaoxh.videoapk.R;
 import com.gaoxh.videoapk.bean.Video;
+import com.gaoxh.videoapk.util.VideoController;
 
 import org.w3c.dom.Text;
 
@@ -46,8 +47,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final VideoViewHolder holder, final int position) {
         holder.videoName.setText(videoList.get(position).getName());
+        holder.videoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VideoController.get().start(holder.videoView,videoList.get(position).getUrl());
+            }
+        });
     }
 
     @Override
